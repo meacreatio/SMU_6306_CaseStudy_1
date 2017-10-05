@@ -1,5 +1,5 @@
 ---
-title: "AA Case Study"
+title: "Beer type by region"
 author: "Matt Pavlovich & Steven Millett"
 date: "October 4, 2017"
 output: html_document
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-## AA Case Study
+## Beer type by region Business growth: Case Study
 
 </br>
 This is a systematic study of the most popular types of beers and where they are popular. We obtained some demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what popular beer types that are missing in a given region and how you can invest wisely given your local region. 
