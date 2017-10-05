@@ -1,0 +1,45 @@
+---
+title: "AA Case Study"
+author: "Matt Pavlovich & Steven Millett"
+date: "October 4, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## AA Case Study
+
+</br>
+This is a systematic study of the most popular types of beers and where they are popular. We obtained some demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what popular beer types that are missing in a given region and how you can invest wisely given your local region. 
+
+
+
+
+These are all of the beers that I have drunk and where I drunked them 
+<!-- Load Data from the Data directory -->
+```{r loadData , echo=TRUE}
+breweryData <- read.csv("Data/Breweries.csv",header = TRUE)
+beerData <- read.csv("Data/Beers.csv", header = TRUE)
+head(breweryData)
+head(beerData)
+```
+
+<!-- This creates a new table which has the State and the number of brewies per state -->
+```{r frequencyOfBreweries , echo=TRUE}
+
+frequencyOfBrewies <- as.data.frame(table(breweryData$State))
+colnames(frequencyOfBrewies) <- c("State","Freq")
+
+```
+
+<!-- This  joins the data on the Brewery ID attribute -->
+```{r mergeBeerAndBreweryData , echo=TRUE}
+
+populationData <- merge(beerData, breweryData,by.x="Brewery_id", by.y="Brew_ID")
+head(populationData)
+
+```
