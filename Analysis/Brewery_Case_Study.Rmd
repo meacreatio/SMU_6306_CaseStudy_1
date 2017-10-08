@@ -65,7 +65,7 @@ fetchMean <- function(column) {
   mean(column, na.rm = T)
 }
 
-plotBarChart <- function(data, xColumn, yColumn, main, xLab, yLab) {
+plotFlippedBarChart <- function(data, xColumn, yColumn, main, xLab, yLab) {
   ggplot(data=data, aes(xColumn, yColumn, fill = ifelse(yColumn == max(yColumn), 1, 0)) ) + geom_bar(stat = "identity") + coord_flip() + labs(title= main, x=xLab, y=yLab) + theme(legend.position="none")
 }
 
@@ -94,7 +94,7 @@ df.ibu.by.state$IBU[is.na(df.ibu.by.state$IBU)] <- 0
 
 library(ggplot2)
 
-plotBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yColumn = df.abv.by.state$ABV, main = "Alcohol By Volume by State\n", xLab = "State", yLab = "ABV")
+plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yColumn = df.abv.by.state$ABV, main = "Alcohol By Volume by State\n", xLab = "State", yLab = "ABV")
 
-plotBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yColumn = df.ibu.by.state$IBU, main = "International Bitterness Unit by State\n", xLab = "State", yLab = "IBU")
+plotFlippedBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yColumn = df.ibu.by.state$IBU, main = "International Bitterness Unit by State\n", xLab = "State", yLab = "IBU")
 ```
