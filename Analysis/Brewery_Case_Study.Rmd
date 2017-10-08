@@ -71,4 +71,6 @@ mean.ABV.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$A
 mean.IBU.by.state
 mean.ABV.by.state
 
+states <- sort(as.character(unique(populationData$State)))
+
 ```
