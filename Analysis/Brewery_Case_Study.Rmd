@@ -51,3 +51,8 @@ names(populationData) <- c("Brewery_ID", "Beer Name", "Beer_ID", "ABV", "IBU", "
 str(populationData)
 ```
 </br>
+
+## Number of NA's in each column
+```{r}
+colSums(is.na(populationData))
+```

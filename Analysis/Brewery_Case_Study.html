@@ -198,11 +198,13 @@ str(populationData)</code></pre>
 <p></br></p>
 </div>
 </div>
-<div id="number-of-nas-in-each-column" class="section level1">
-<h1>Number of NA’s in each column</h1>
-<div id="section" class="section level5">
-<h5>3</h5>
-</div>
+<div id="number-of-nas-in-each-column" class="section level2">
+<h2>Number of NA’s in each column</h2>
+<pre class="r"><code>colSums(is.na(populationData))</code></pre>
+<pre><code>##   Brewery_ID    Beer Name      Beer_ID          ABV          IBU 
+##            0            0            0           62         1005 
+##        Style       Ounces Brewery Name         City        State 
+##            0            0            0            0            0</code></pre>
 </div>
 
 
