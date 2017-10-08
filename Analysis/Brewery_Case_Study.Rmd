@@ -43,3 +43,11 @@ populationData <- merge(beerData, breweryData,by.x="Brewery_id", by.y="Brew_ID")
 head(populationData)
 
 ```
+</br>
+
+##### Update column names after merge
+```{r}
+names(populationData) <- c("Brewery_ID", "Beer Name", "Beer_ID", "ABV", "IBU", "Style", "Ounces", "Brewery Name", "City", "State")
+str(populationData)
+```
+</br>
