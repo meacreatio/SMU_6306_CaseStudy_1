@@ -56,3 +56,19 @@ str(populationData)
 ```{r}
 colSums(is.na(populationData))
 ```
+
+</br>
+
+## Alcohol Content and International Bitterness Unit by state
+```{r}
+populationData.by.state <- split(populationData, f = populationData$State, drop = T)
+
+fetchMean <- function(column) {
+  mean(column, na.rm = T)
+}
+mean.IBU.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$IBU) })
+mean.ABV.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$ABV) })
+mean.IBU.by.state
+mean.ABV.by.state
+
+```

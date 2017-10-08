@@ -205,6 +205,51 @@ str(populationData)</code></pre>
 ##            0            0            0           62         1005 
 ##        Style       Ounces Brewery Name         City        State 
 ##            0            0            0            0            0</code></pre>
+<p></br></p>
+</div>
+<div id="alcohol-content-and-international-bitterness-unit-by-state" class="section level2">
+<h2>Alcohol Content and International Bitterness Unit by state</h2>
+<pre class="r"><code>populationData.by.state &lt;- split(populationData, f = populationData$State, drop = T)
+
+fetchMean &lt;- function(column) {
+  mean(column, na.rm = T)
+}
+mean.IBU.by.state &lt;- sapply(populationData.by.state, function(x) { fetchMean(x$IBU) })
+mean.ABV.by.state &lt;- sapply(populationData.by.state, function(x) { fetchMean(x$ABV) })
+mean.IBU.by.state</code></pre>
+<pre><code>##       AK       AL       AR       AZ       CA       CO       CT       DC 
+## 40.88235 51.22222 39.00000 35.20833 46.28148 47.43151 40.83333 55.25000 
+##       DE       FL       GA       HI       IA       ID       IL       IN 
+## 52.00000 46.75676 46.28571 32.66667 33.20000 55.11765 41.46154 42.98901 
+##       KS       KY       LA       MA       MD       ME       MI       MN 
+## 36.68421 40.71429 33.00000 38.00000 36.80000 52.85714 36.73684 49.95652 
+##       MO       MS       MT       NC       ND       NE       NH       NJ 
+## 32.48276 46.45455 41.69565 43.30000 40.33333 30.66667 48.50000 46.37500 
+##       NM       NV       NY       OH       OK       OR       PA       RI 
+## 57.00000 46.50000 46.00000 44.18750 40.72727 47.94253 42.44681 31.55000 
+##       SC       SD       TN       TX       UT       VA       VT       WA 
+## 30.20000      NaN 41.60000 40.39326 45.54545 45.37143 42.29412 44.97674 
+##       WI       WV       WY 
+## 26.54762 57.50000 32.08333</code></pre>
+<pre class="r"><code>mean.ABV.by.state</code></pre>
+<pre><code>##         AK         AL         AR         AZ         CA         CO 
+## 0.05564000 0.06200000 0.05200000 0.06022727 0.06108242 0.06337200 
+##         CT         DC         DE         FL         GA         HI 
+## 0.06107407 0.06562500 0.05500000 0.05994643 0.05637500 0.05729630 
+##         IA         ID         IL         IN         KS         KY 
+## 0.05950000 0.06070000 0.06202198 0.06339416 0.05608696 0.06460000 
+##         LA         MA         MD         ME         MI         MN 
+## 0.05552632 0.05568293 0.05904762 0.05781481 0.06337748 0.06021818 
+##         MO         MS         MT         NC         ND         NE 
+## 0.05479487 0.05890909 0.05648718 0.06003636 0.05400000 0.05804762 
+##         NH         NJ         NM         NV         NY         OH 
+## 0.05237500 0.05737500 0.06107692 0.06690000 0.05721918 0.06195918 
+##         OK         OR         PA         RI         SC         SD 
+## 0.05947368 0.05706400 0.06014433 0.05703704 0.06071429 0.05928571 
+##         TN         TX         UT         VA         VT         WA 
+## 0.05516667 0.05983871 0.05188462 0.05705000 0.06037037 0.05779412 
+##         WI         WV         WY 
+## 0.05405882 0.06200000 0.05486667</code></pre>
 </div>
 
 
