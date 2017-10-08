@@ -60,7 +60,7 @@ colSums(is.na(populationData))
 </br>
 
 ## Alcohol Content and International Bitterness Unit by state
-```{r}
+```{r, fig.width=10,fig.height=11}
 populationData.by.state <- split(populationData, f = populationData$State, drop = T)
 
 fetchMean <- function(column) {
@@ -68,9 +68,30 @@ fetchMean <- function(column) {
 }
 mean.IBU.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$IBU) })
 mean.ABV.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$ABV) })
-mean.IBU.by.state
-mean.ABV.by.state
 
 states <- sort(as.character(unique(populationData$State)))
+
+# convert states and abv means to data frame
+df.abv.by.state <- data.frame(mean.ABV.by.state)
+df.abv.by.state$State = states
+row.names(df.abv.by.state) <- NULL
+df.abv.by.state <- df.abv.by.state[c(2, 1)]
+names(df.abv.by.state) <- c("State", "ABV")
+
+# convert states and ibu means to data frame
+df.ibu.by.state <- data.frame(mean.IBU.by.state)
+df.ibu.by.state$State = states
+row.names(df.ibu.by.state) <- NULL
+df.ibu.by.state <- df.ibu.by.state[c(2, 1)]
+names(df.ibu.by.state) <- c("State", "IBU")
+# TODO remove or keep as zero?
+df.ibu.by.state$IBU[is.na(df.ibu.by.state$IBU)] <- 0
+
+library(ggplot2)
+ggplot(data=df.abv.by.state, aes(df.abv.by.state$State, df.abv.by.state$ABV, fill = ifelse(df.abv.by.state$ABV == max(df.abv.by.state$ABV), 1, 0)) ) +
+  geom_bar(stat = "identity") + coord_flip() + labs(title="Alcohol By Volume by State\n", x="State", y="ABV") + theme(legend.position="none")
+
+ggplot(data=df.ibu.by.state, aes(df.ibu.by.state$State, df.ibu.by.state$IBU, fill = ifelse(df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), 1, 0)) ) +
+  geom_bar(stat = "identity") + coord_flip() + labs(title="International Bitterness Unit by State\n", x="State", y="IBU") + theme(legend.position="none")
 
 ```
