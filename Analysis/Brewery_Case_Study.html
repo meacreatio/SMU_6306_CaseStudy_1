@@ -225,6 +225,7 @@ df.abv.by.state$State = states
 row.names(df.abv.by.state) &lt;- NULL
 df.abv.by.state &lt;- df.abv.by.state[c(2, 1)]
 names(df.abv.by.state) &lt;- c(&quot;State&quot;, &quot;ABV&quot;)
+df.abv.by.state$ABV[is.na(df.abv.by.state$ABV)] &lt;- 0
 
 # convert states and ibu means to data frame
 df.ibu.by.state &lt;- data.frame(mean.IBU.by.state)

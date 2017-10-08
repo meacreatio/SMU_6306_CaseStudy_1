@@ -77,6 +77,7 @@ df.abv.by.state$State = states
 row.names(df.abv.by.state) <- NULL
 df.abv.by.state <- df.abv.by.state[c(2, 1)]
 names(df.abv.by.state) <- c("State", "ABV")
+df.abv.by.state$ABV[is.na(df.abv.by.state$ABV)] <- 0
 
 # convert states and ibu means to data frame
 df.ibu.by.state <- data.frame(mean.IBU.by.state)
