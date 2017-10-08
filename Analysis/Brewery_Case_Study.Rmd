@@ -112,3 +112,26 @@ df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ]
 ```{r}
 df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]
 ```
+
+</br>
+
+## Summary Statistics for ABV
+```{r}
+summary(populationData$ABV)
+summary(populationData$IBU)
+```
+
+</br>
+
+## Plot of ABV and IBU
+```{r}
+ggplot(data=populationData,aes(ABV,IBU,color=Style))+geom_point(na.rm = TRUE)+theme(legend.position = "none")+geom_smooth(data=populationData,aes(ABV,IBU),na.rm=TRUE,method="lm",se=FALSE,inherit.aes = FALSE)
+linearABV <- lm(IBU~ABV, data=populationData)
+linearABV
+summary(linearABV)
+```
+
+Based on the scatteplot graph and the linear regression we see a statistically signficant relationship (p<0.0001) between the alcohol conent of the beer and the bitterness. The linear formula given IBU = -34.1 + 1282*ABV shows us this relationship. From the range of ABV from .1% to 12.8% we get a range from -32.8 to 130 for the IBU.At the lower end this breaks down, but accurately predicts the IBU for the higher alcohol beer.
+
+
+
