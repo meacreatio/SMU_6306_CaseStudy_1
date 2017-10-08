@@ -61,11 +61,16 @@ colSums(is.na(populationData))
 
 ## Alcohol Content and International Bitterness Unit by state
 ```{r, fig.width=10,fig.height=11}
-populationData.by.state <- split(populationData, f = populationData$State, drop = T)
-
 fetchMean <- function(column) {
   mean(column, na.rm = T)
 }
+
+plotBarChart <- function(data, xColumn, yColumn, main, xLab, yLab) {
+  ggplot(data=data, aes(xColumn, yColumn, fill = ifelse(yColumn == max(yColumn), 1, 0)) ) + geom_bar(stat = "identity") + coord_flip() + labs(title= main, x=xLab, y=yLab) + theme(legend.position="none")
+}
+
+populationData.by.state <- split(populationData, f = populationData$State, drop = T)
+
 mean.IBU.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$IBU) })
 mean.ABV.by.state <- sapply(populationData.by.state, function(x) { fetchMean(x$ABV) })
 
@@ -85,14 +90,11 @@ df.ibu.by.state$State = states
 row.names(df.ibu.by.state) <- NULL
 df.ibu.by.state <- df.ibu.by.state[c(2, 1)]
 names(df.ibu.by.state) <- c("State", "IBU")
-# TODO remove or keep as zero?
 df.ibu.by.state$IBU[is.na(df.ibu.by.state$IBU)] <- 0
 
 library(ggplot2)
-ggplot(data=df.abv.by.state, aes(df.abv.by.state$State, df.abv.by.state$ABV, fill = ifelse(df.abv.by.state$ABV == max(df.abv.by.state$ABV), 1, 0)) ) +
-  geom_bar(stat = "identity") + coord_flip() + labs(title="Alcohol By Volume by State\n", x="State", y="ABV") + theme(legend.position="none")
 
-ggplot(data=df.ibu.by.state, aes(df.ibu.by.state$State, df.ibu.by.state$IBU, fill = ifelse(df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), 1, 0)) ) +
-  geom_bar(stat = "identity") + coord_flip() + labs(title="International Bitterness Unit by State\n", x="State", y="IBU") + theme(legend.position="none")
+plotBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yColumn = df.abv.by.state$ABV, main = "Alcohol By Volume by State\n", xLab = "State", yLab = "ABV")
 
+plotBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yColumn = df.ibu.by.state$IBU, main = "International Bitterness Unit by State\n", xLab = "State", yLab = "IBU")
 ```
