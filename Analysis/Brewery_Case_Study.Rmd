@@ -98,3 +98,17 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 
 plotFlippedBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yColumn = df.ibu.by.state$IBU, main = "International Bitterness Unit by State\n", xLab = "State", yLab = "IBU")
 ```
+
+</br>
+
+## Which state's beer has the highest alcohol content (on average)?
+```{r}
+df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ]
+```
+
+</br>
+
+## Which state's beer is the most bitter (on average)?
+```{r}
+df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]
+```
