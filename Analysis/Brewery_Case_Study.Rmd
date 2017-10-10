@@ -7,6 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(sqldf)
+library(knitr)
 ```
 
 
@@ -14,56 +17,81 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Beer type by region Business growth: Case Study
 
 </br>
-This is a systematic study of the most popular types of beers and where they are popular. We obtained some demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what popular beer types that are missing in a given region and how you can invest wisely given your local region. 
+This is a systematic study of the most popular types of beers and where they are popular. We obtained demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what some popular beers that can be made for a state given the state's most popular beer and the characteristic of the 100 different styles of beers. 
+</br>
+Somethings to note we will be talking about two main characteristics of beer, IBU (International Bitterness Unit) and ABV (Alcohol by Volume). While there are other characteristics that contribute to the flavor of a beer, for the purposes of this study we are going to assume these are the primary components that make up a beer's flavor. 
+</br>
 
 
 
-
-These are all of the beers that I have drunk and where I drunked them 
+## Number of NA's in each column
 <!-- Load Data from the Data directory -->
 ```{r loadData , echo=TRUE}
 breweryData <- read.csv("Data/Breweries.csv",header = TRUE)
 beerData <- read.csv("Data/Beers.csv", header = TRUE)
-head(breweryData)
-head(beerData)
+kable(head(breweryData,5), caption="Head of Breweries.csv")
+kable(head(beerData,5),caption="Head of Beers.csv")
 ```
 
+</br>
+
+#What are the number of breweries per state?
+</br>
 <!-- This creates a new table which has the State and the number of brewies per state -->
-```{r frequencyOfBreweries , echo=TRUE}
+```{r frequencyOfBreweries, echo=TRUE}
 
 frequencyOfBrewies <- as.data.frame(table(breweryData$State))
-colnames(frequencyOfBrewies) <- c("State","Freq")
-
+colnames(frequencyOfBrewies) <- c("State","Number of Breweries")
+kable(frequencyOfBrewies[order(-frequencyOfBrewies$`Number of Breweries`),],row.names = FALSE)
 ```
 
+</br>
+From the above table we see the number of breweries in descending order. It looks like there are greater possibility for competition if we open a brewery in Colorado, California, or Michigan. 
+</br>
+
+#Combining Brewery and Beer information
+</br>
 <!-- This  joins the data on the Brewery ID attribute -->
 ```{r mergeBeerAndBreweryData , echo=TRUE}
 
 populationData <- merge(beerData, breweryData,by.x="Brewery_id", by.y="Brew_ID")
-head(populationData)
-
-```
-</br>
-
-##### Update column names after merge
-```{r}
 names(populationData) <- c("Brewery_ID", "Beer Name", "Beer_ID", "ABV", "IBU", "Style", "Ounces", "Brewery Name", "City", "State")
-str(populationData)
+kable(head(populationData,6),row.names = FALSE)
+kable(tail(populationData,6),row.names = FALSE)
 ```
+
+</br>
+Here we combine the Brewery and Beer information so we can get an understanding of the types of beers that are made in each state.
+
+</br>
+<!--Matt do we need this?-->
+<!--
+##### Update column names after merge
+
+```{r}
+
+kable(str(populationData))
+```
+-->
 </br>
 
 ## Number of NA's in each column
+
 ```{r}
-colSums(is.na(populationData))
+kable(colSums(is.na(populationData)))
 ```
 
 </br>
+Due to the source of the data we are missing some information regarding the flavor and alcohol content of some of the beers. Given we are missing over 1000 values for the flavor characterstic, IBU, we will have to make some guesses later on for what the flavor of a given beer should be. 
+
+
 
 ## Alcohol Content and International Bitterness Unit by state
 ```{r, fig.width=10,fig.height=11}
 fetchMean <- function(column) {
   mean(column, na.rm = T)
 }
+
 
 plotFlippedBarChart <- function(data, xColumn, yColumn, main, xLab, yLab) {
   ggplot(data=data, aes(xColumn, yColumn, fill = ifelse(yColumn == max(yColumn), 1, 0)) ) + geom_bar(stat = "identity") + coord_flip() + labs(title= main, x=xLab, y=yLab) + theme(legend.position="none")
@@ -92,7 +120,6 @@ df.ibu.by.state <- df.ibu.by.state[c(2, 1)]
 names(df.ibu.by.state) <- c("State", "IBU")
 df.ibu.by.state$IBU[is.na(df.ibu.by.state$IBU)] <- 0
 
-library(ggplot2)
 
 plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yColumn = df.abv.by.state$ABV, main = "Alcohol By Volume by State\n", xLab = "State", yLab = "ABV")
 
@@ -103,9 +130,11 @@ plotFlippedBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yCo
 
 ## Which state's beer has the highest alcohol content (on average)?
 ```{r}
-df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ]
+kable(df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ])
 ```
 
+</br>
+From the barchart above we are able to see that Nevada makes beers that have more alcohol on average than other states. Comparing the different states we see that Nevada makes beer on average with an ABV of 6.69%.
 </br>
 
 ## Which state's beer is the most bitter (on average)?
@@ -114,13 +143,28 @@ df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]
 ```
 
 </br>
+We are able to confirm from comparing the average IBU per state that West Virgina has the highest average IBUs of 57.5.
+</br>
+
+
+
+
+</br>
+
+
+
+
+
+
+
 
 ## Summary Statistics for ABV
 ```{r}
 summary(populationData$ABV)
-summary(populationData$IBU)
 ```
 
+</br>
+We see that there is a range for the ABV variable, with some of the styles being titled Low Alcohol Beer. The ABV of a given beer can impart certain flavors, which can often taste bitter with lighter beers. It should follow then that breweries would increase the IBUs of a beer when the brew has a higher ABV.
 </br>
 
 ## Plot of ABV and IBU
@@ -133,5 +177,82 @@ summary(linearABV)
 
 Based on the scatteplot graph and the linear regression we see a statistically signficant relationship (p<0.0001) between the alcohol conent of the beer and the bitterness. The linear formula given IBU = -34.1 + 1282*ABV shows us this relationship. From the range of ABV from .1% to 12.8% we get a range from -32.8 to 130 for the IBU.At the lower end this breaks down, but accurately predicts the IBU for the higher alcohol beer.
 
+## Most popular style
+```{r, fig.width=10,fig.height=11,include=TRUE}
+#Gets the closest vector from a data frame, given a set vector with coordinates(ABV,IBU)
+#Returns a value with the name of the closest vector
+nearestNeighbor <- function(temp.ABV,temp.IBU,temp.df,neighbor=1) {
+  temp.df$distance<-sqrt(((temp.ABV-temp.df[2])*100)**2+(temp.IBU-temp.df[3])**2)
+  temp.df<-temp.df[order(temp.df$distance),]
+  temp.df[neighbor,1]
+}
+
+#Returns the mode of a given vector
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+populationData.by.style <- split(populationData, f = populationData$Style, drop = T)
+
+mean.IBU.by.style <- sapply(populationData.by.style, function(x) { fetchMean(x$IBU) })
+mean.ABV.by.style <- sapply(populationData.by.style, function(x) { fetchMean(x$ABV) })
+
+styles <- sort(as.character(unique(populationData$Style)))
+
+# convert states and abv means to data frame
+df.style <- data.frame(mean.ABV.by.style)
+df.style$style = styles
+df.style$IBU = mean.IBU.by.style
+#row.names(df.style) <- NULL
+df.style <- df.style[c(2, 1,3)]
+names(df.style) <- c("Style", "ABV","IBU")
+df.style[is.na(df.style)] <- 0
+
+#Correcting for missing IBU.
+#This creates a linear model for the existing ABV and IBU values then returns an IBU
+#with the existing ABV.
+temp.df.style <- df.style[c(df.style$ABV!=0 & df.style$IBU!=0),]
+temp.linear<-lm(IBU~ABV,data=temp.df.style)
+temp.df.linear <- data.frame(df.style[c(df.style$ABV==0 | df.style$IBU==0),2])
+names(temp.df.linear)<-"ABV"
+temp.df.linear <- cbind("ABV"=temp.df.linear,"IBU"=predict(temp.linear,newdata = temp.df.linear))
+names(temp.df.linear) <- c("ABV","IBU")
+
+#This merges the values we received from the linear model and joins them where there is a value of 0 in the 
+#data frame with existing data.
+temp.merge <- sqldf("SELECT * FROM `df.style` LEFT JOIN `temp.df.linear` ON `df.style`.ABV = `temp.df.linear`.ABV AND `df.style`.IBU == 0")
+temp.merge[is.na(temp.merge)]<-0
+df.style$IBU<-temp.merge[,3]+temp.merge[,5]
+df.style[df.style$IBU<0,]$IBU<-0
+
+#We are creating a new data frame with the most popular beer per state. Most popular beer is taken to mean
+#the beer that is made the most in the state.
+most.popular.style.by.state <- sapply(populationData.by.state, function(x) { getmode(x$Style) })
+df.most.popular.style.by.state <- data.frame(most.popular.style.by.state)
+df.most.popular.style.by.state$State = states
+row.names(df.most.popular.style.by.state) <- NULL
+df.most.popular.style.by.state <- df.most.popular.style.by.state[c(2, 1)]
+names(df.most.popular.style.by.state) <- c("State", "Style")
+
+#This calls an SQL statement to merge the df.style data frame and the most popular style data frame
+#and copying on the columns with state, abv, ibu, and style to the most popular style data frame.
+df.most.popular.style.by.state<-sqldf("SELECT State,`df.most.popular.style.by.state`.Style,ABV,IBU FROM `df.most.popular.style.by.state` LEFT JOIN `df.style` ON `df.most.popular.style.by.state`.Style = `df.style`.Style ")
 
 
+#Here we are creating a new column for the most popular style data frame with the closest style in terms of ABV and IBU
+#to the current most popular beer in the state.
+df.most.popular.style.by.state<-cbind(df.most.popular.style.by.state,"Recommended Alternative"=mapply(function(x,y) { nearestNeighbor(x,y,df.style,2)},df.most.popular.style.by.state$ABV,df.most.popular.style.by.state$IBU))
+
+finalAnalysis<-sqldf("SELECT `df.most.popular.style.by.state`.State,Style,[Recommended Alternative],[Number of Breweries] FROM `df.most.popular.style.by.state` LEFT JOIN 'frequencyOfBrewies' ON `df.most.popular.style.by.state`.State = 'frequencyOfBrewies'.State ")
+
+#Output of a table with the state, most popular beer, and a good alternative given the current most popular.
+kable(finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FALSE)
+
+#map ABV and IBU relationship
+#ggplot(data=df.style,aes(ABV,IBU,color=Style))+geom_point(na.rm = TRUE)+theme(legend.position = "none")+geom_smooth(data=df.style,aes(ABV,IBU),na.rm=TRUE,inherit.aes = FALSE)
+
+```
+
+</br>
+Above we see a table of the states, their most popular beer, recommended alternative to make in the state, and the number of breweries in the states. So to avoid a crowded market we are recommending possibly going into the Dakotas where North Dakota might like an Extra Special/Strong Bitter and South Dakota would appreciate a Smoked Beer. If you are starting a brewery in California or Michican we recommend introducing an American Black Ale. 
