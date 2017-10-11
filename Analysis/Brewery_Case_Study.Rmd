@@ -25,7 +25,7 @@ Somethings to note we will be talking about two main characteristics of beer, IB
 
 
 ## Number of NA's in each column
-<!-- Load Data from the Data directory -->
+###### The following code loads the Breweries and Beers data from their respective .csv files and then cleanly displays the first 5 rows of each.
 ```{r loadData , echo=TRUE}
 breweryData <- read.csv("Data/Breweries.csv",header = TRUE)
 beerData <- read.csv("Data/Beers.csv", header = TRUE)
@@ -37,7 +37,8 @@ kable(head(beerData,5),caption="Head of Beers.csv")
 
 #What are the number of breweries per state?
 </br>
-<!-- This creates a new table which has the State and the number of brewies per state -->
+
+###### The following code derives the numbers of breweries by state, adds it as a column, and then cleanly displays the data in order of most breweries per state (descending). 
 ```{r frequencyOfBreweries, echo=TRUE}
 
 frequencyOfBrewies <- as.data.frame(table(breweryData$State))
@@ -51,7 +52,8 @@ From the above table we see the number of breweries in descending order. It look
 
 #Combining Brewery and Beer information
 </br>
-<!-- This  joins the data on the Brewery ID attribute -->
+
+###### The following code merges the Brewery and Beer data by Brewery_id and Brew_ID.  It then cleans up the column names and cleanly prints out the first 6 rows.
 ```{r mergeBeerAndBreweryData , echo=TRUE}
 
 populationData <- merge(beerData, breweryData,by.x="Brewery_id", by.y="Brew_ID")
