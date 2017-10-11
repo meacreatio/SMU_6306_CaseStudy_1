@@ -134,7 +134,7 @@ From the barchart above we are able to see that Nevada makes beers that have mor
 ## Which state's beer is the most bitter (on average)?
 ###### The following code prints out which State's beer has the highest IBU rating.
 ```{r}
-df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]
+kable(df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ])
 ```
 
 </br>

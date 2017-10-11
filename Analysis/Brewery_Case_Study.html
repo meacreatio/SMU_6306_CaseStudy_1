@@ -784,9 +784,23 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 <h2>Which state’s beer is the most bitter (on average)?</h2>
 <div id="the-following-code-prints-out-which-states-beer-has-the-highest-ibu-rating." class="section level6">
 <h6>The following code prints out which State’s beer has the highest IBU rating.</h6>
-<pre class="r"><code>df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]</code></pre>
-<pre><code>##    State  IBU
-## 50    WV 57.5</code></pre>
+<pre class="r"><code>kable(df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ])</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">State</th>
+<th align="right">IBU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>50</td>
+<td align="left">WV</td>
+<td align="right">57.5</td>
+</tr>
+</tbody>
+</table>
 <p></br> We are able to confirm from comparing the average IBU per state that West Virgina has the highest average IBUs of 57.5. </br></p>
 <p></br></p>
 </div>
