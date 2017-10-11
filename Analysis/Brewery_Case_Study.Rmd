@@ -25,7 +25,7 @@ Somethings to note we will be talking about two main characteristics of beer, IB
 
 
 ## Number of NA's in each column
-###### The following code loads the Breweries and Beers data from their respective .csv files and then cleanly displays the first 5 rows of each.
+###### The following code loads the Breweries and Beers data from their respective .csv files and then displays the first 5 rows of each.
 ```{r loadData , echo=TRUE}
 breweryData <- read.csv("Data/Breweries.csv",header = TRUE)
 beerData <- read.csv("Data/Beers.csv", header = TRUE)
@@ -38,7 +38,7 @@ kable(head(beerData,5),caption="Head of Beers.csv")
 #What are the number of breweries per state?
 </br>
 
-###### The following code derives the numbers of breweries by state, adds it as a column, and then cleanly displays the data in order of most breweries per state (descending). 
+###### The following code derives the numbers of breweries by state, adds it as a column, and then displays the data in order of most breweries per state (descending). 
 ```{r frequencyOfBreweries, echo=TRUE}
 
 frequencyOfBrewies <- as.data.frame(table(breweryData$State))
@@ -53,7 +53,7 @@ From the above table we see the number of breweries in descending order. It look
 #Combining Brewery and Beer information
 </br>
 
-###### The following code merges the Brewery and Beer data by Brewery_id and Brew_ID.  It then cleans up the column names and cleanly prints out the first 6 rows.
+###### The following code merges the Brewery and Beer data by Brewery_id and Brew_ID.  It then cleans up the column names and prints out the first 6 rows as well as the last 6 rows.
 ```{r mergeBeerAndBreweryData , echo=TRUE}
 
 populationData <- merge(beerData, breweryData,by.x="Brewery_id", by.y="Brew_ID")
@@ -66,19 +66,9 @@ kable(tail(populationData,6),row.names = FALSE)
 Here we combine the Brewery and Beer information so we can get an understanding of the types of beers that are made in each state.
 
 </br>
-<!--Matt do we need this?-->
-<!--
-##### Update column names after merge
-
-```{r}
-
-kable(str(populationData))
-```
--->
-</br>
 
 ## Number of NA's in each column
-
+###### The following code prints out the number of NA's in our merge data set.
 ```{r}
 kable(colSums(is.na(populationData)))
 ```
@@ -86,9 +76,10 @@ kable(colSums(is.na(populationData)))
 </br>
 Due to the source of the data we are missing some information regarding the flavor and alcohol content of some of the beers. Given we are missing over 1000 values for the flavor characterstic, IBU, we will have to make some guesses later on for what the flavor of a given beer should be. 
 
-
+</br>
 
 ## Alcohol Content and International Bitterness Unit by state
+###### The following code results in two horizontally rotated bar charts - one for Alcohol by Volume by State, and another for the International Bitterness Unit by State.  Both charts are rotated to allow for all 50 states to easily show up.  The max value in each chart is highlighted a different color for ease of reference.
 ```{r, fig.width=10,fig.height=11}
 fetchMean <- function(column) {
   mean(column, na.rm = T)
