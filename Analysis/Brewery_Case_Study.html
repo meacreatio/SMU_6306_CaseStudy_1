@@ -758,6 +758,8 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 </div>
 <div id="which-states-beer-has-the-highest-alcohol-content-on-average" class="section level2">
 <h2>Which state’s beer has the highest alcohol content (on average)?</h2>
+<div id="the-following-code-prints-out-which-states-beer-has-the-highest-alcohol-content." class="section level6">
+<h6>The following code prints out which State’s beer has the highest alcohol content.</h6>
 <pre class="r"><code>kable(df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ])</code></pre>
 <table>
 <thead>
@@ -776,6 +778,7 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 </tbody>
 </table>
 <p></br> From the barchart above we are able to see that Nevada makes beers that have more alcohol on average than other states. Comparing the different states we see that Nevada makes beer on average with an ABV of 6.69%. </br></p>
+</div>
 </div>
 <div id="which-states-beer-is-the-most-bitter-on-average" class="section level2">
 <h2>Which state’s beer is the most bitter (on average)?</h2>

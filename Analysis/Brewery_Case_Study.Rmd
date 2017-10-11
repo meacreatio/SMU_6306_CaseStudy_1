@@ -122,6 +122,7 @@ plotFlippedBarChart(data = df.ibu.by.state, xColumn = df.ibu.by.state$State, yCo
 </br>
 
 ## Which state's beer has the highest alcohol content (on average)?
+###### The following code prints out which State's beer has the highest alcohol content.
 ```{r}
 kable(df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ])
 ```
