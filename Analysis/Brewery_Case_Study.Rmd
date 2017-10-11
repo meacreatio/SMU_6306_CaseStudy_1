@@ -155,6 +155,7 @@ We see that there is a range for the ABV variable, with some of the styles being
 </br>
 
 ## Plot of ABV and IBU
+###### The following code shows a scatter plot of the ABV and IBU to show the positive correlation of IBU to IBU.  A summary of the linear model is also printed.
 ```{r}
 ggplot(data=populationData,aes(ABV,IBU,color=Style))+geom_point(na.rm = TRUE)+theme(legend.position = "none")+geom_smooth(data=populationData,aes(ABV,IBU),na.rm=TRUE,method="lm",se=FALSE,inherit.aes = FALSE)
 linearABV <- lm(IBU~ABV, data=populationData)
