@@ -841,6 +841,8 @@ linearABV</code></pre>
 </div>
 <div id="most-popular-style" class="section level2">
 <h2>Most popular style</h2>
+<div id="the-following-code-creates-a-new-data-frame-whos-aim-is-to-suggest-similar-beer-alternatives-in-terms-of-abv-and-ibu-for-a-particular-state.-it-also-shows-that-particular-states-most-popular-beer-as-well-the-number-of-breweries-in-that-state-in-an-effort-to-show-untapped-market-potential." class="section level6">
+<h6>The following code creates a new data frame who’s aim is to suggest similar beer alternatives (in terms of ABV and IBU) for a particular state. It also shows that particular state’s most popular beer as well the number of breweries in that state in an effort to show untapped market potential.</h6>
 <pre class="r"><code>#Gets the closest vector from a data frame, given a set vector with coordinates(ABV,IBU)
 #Returns a value with the name of the closest vector
 nearestNeighbor &lt;- function(temp.ABV,temp.IBU,temp.df,neighbor=1) {
@@ -1231,6 +1233,7 @@ kable(finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FA
 <pre class="r"><code>#map ABV and IBU relationship
 #ggplot(data=df.style,aes(ABV,IBU,color=Style))+geom_point(na.rm = TRUE)+theme(legend.position = &quot;none&quot;)+geom_smooth(data=df.style,aes(ABV,IBU),na.rm=TRUE,inherit.aes = FALSE)</code></pre>
 <p></br> Above we see a table of the states, their most popular beer, recommended alternative to make in the state, and the number of breweries in the states. So to avoid a crowded market we are recommending possibly going into the Dakotas where North Dakota might like an Extra Special/Strong Bitter and South Dakota would appreciate a Smoked Beer. If you are starting a brewery in California or Michican we recommend introducing an American Black Ale.</p>
+</div>
 </div>
 </div>
 

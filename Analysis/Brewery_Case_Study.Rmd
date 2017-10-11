@@ -166,6 +166,7 @@ summary(linearABV)
 Based on the scatteplot graph and the linear regression we see a statistically signficant relationship (p<0.0001) between the alcohol conent of the beer and the bitterness. The linear formula given IBU = -34.1 + 1282*ABV shows us this relationship. From the range of ABV from .1% to 12.8% we get a range from -32.8 to 130 for the IBU.At the lower end this breaks down, but accurately predicts the IBU for the higher alcohol beer.
 
 ## Most popular style
+###### The following code creates a new data frame who's aim is to suggest similar beer alternatives (in terms of ABV and IBU) for a particular state.  It also shows that particular state's most popular beer as well the number of breweries in that state in an effort to show untapped market potential. 
 ```{r, fig.width=10,fig.height=11,include=TRUE}
 #Gets the closest vector from a data frame, given a set vector with coordinates(ABV,IBU)
 #Returns a value with the name of the closest vector
