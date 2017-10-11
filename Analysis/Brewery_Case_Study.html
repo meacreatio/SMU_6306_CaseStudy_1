@@ -758,8 +758,8 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 </div>
 <div id="which-states-beer-has-the-highest-alcohol-content-on-average" class="section level2">
 <h2>Which state’s beer has the highest alcohol content (on average)?</h2>
-<div id="the-following-code-prints-out-which-states-beer-has-the-highest-alcohol-content." class="section level6">
-<h6>The following code prints out which State’s beer has the highest alcohol content.</h6>
+<div id="the-following-code-prints-out-which-states-beer-has-the-highest-alcohol-by-volume." class="section level6">
+<h6>The following code prints out which State’s beer has the highest alcohol by volume.</h6>
 <pre class="r"><code>kable(df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ])</code></pre>
 <table>
 <thead>
@@ -782,18 +782,24 @@ plotFlippedBarChart(data = df.abv.by.state, xColumn = df.abv.by.state$State, yCo
 </div>
 <div id="which-states-beer-is-the-most-bitter-on-average" class="section level2">
 <h2>Which state’s beer is the most bitter (on average)?</h2>
+<div id="the-following-code-prints-out-which-states-beer-has-the-highest-ibu-rating." class="section level6">
+<h6>The following code prints out which State’s beer has the highest IBU rating.</h6>
 <pre class="r"><code>df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]</code></pre>
 <pre><code>##    State  IBU
 ## 50    WV 57.5</code></pre>
 <p></br> We are able to confirm from comparing the average IBU per state that West Virgina has the highest average IBUs of 57.5. </br></p>
 <p></br></p>
 </div>
+</div>
 <div id="summary-statistics-for-abv" class="section level2">
 <h2>Summary Statistics for ABV</h2>
+<div id="the-following-code-prints-a-summary-of-the-merged-data-abv-column." class="section level5">
+<h5>The following code prints a summary of the merged data ABV column.</h5>
 <pre class="r"><code>summary(populationData$ABV)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 ## 0.00100 0.05000 0.05600 0.05977 0.06700 0.12800      62</code></pre>
 <p></br> We see that there is a range for the ABV variable, with some of the styles being titled Low Alcohol Beer. The ABV of a given beer can impart certain flavors, which can often taste bitter with lighter beers. It should follow then that breweries would increase the IBUs of a beer when the brew has a higher ABV. </br></p>
+</div>
 </div>
 <div id="plot-of-abv-and-ibu" class="section level2">
 <h2>Plot of ABV and IBU</h2>

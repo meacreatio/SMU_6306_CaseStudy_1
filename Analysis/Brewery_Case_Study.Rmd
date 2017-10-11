@@ -141,19 +141,11 @@ df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ]
 We are able to confirm from comparing the average IBU per state that West Virgina has the highest average IBUs of 57.5.
 </br>
 
-
-
-
 </br>
 
 
-
-
-
-
-
-
 ## Summary Statistics for ABV
+###### The following code prints a summary of the merged data ABV column.
 ```{r}
 summary(populationData$ABV)
 ```
