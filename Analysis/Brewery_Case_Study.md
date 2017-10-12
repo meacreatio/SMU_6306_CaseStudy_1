@@ -419,7 +419,6 @@ finalAnalysis<-sqldf("SELECT `df.most.popular.style.by.state`.State,Style,[Recom
 
 #Output of a table with the state, most popular beer, and a good alternative given the current most popular.
 finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FALSE
-finalAnalysis
 ```
 
 
