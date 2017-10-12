@@ -418,7 +418,7 @@ df.most.popular.style.by.state<-cbind(df.most.popular.style.by.state,"Recommende
 finalAnalysis<-sqldf("SELECT `df.most.popular.style.by.state`.State,Style,[Recommended Alternative],[Number of Breweries] FROM `df.most.popular.style.by.state` LEFT JOIN 'frequencyOfBrewies' ON `df.most.popular.style.by.state`.State = 'frequencyOfBrewies'.State ")
 
 #Output of a table with the state, most popular beer, and a good alternative given the current most popular.
-finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FALSE
+kable(finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FALSE)
 ```
 
 
