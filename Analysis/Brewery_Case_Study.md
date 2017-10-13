@@ -55,8 +55,7 @@ Sex and Candy             2262   0.075    NA          178  American IPA         
 
 </br>
 
-#What are the number of breweries per state?
-</br>
+## What are the number of breweries per state?
 
 ###### The following code derives the numbers of breweries by state, adds it as a column, and then displays the data in order of most breweries per state (descending). 
 
@@ -127,7 +126,6 @@ From the above table we see the number of breweries in descending order. It look
 </br>
 
 #Combining Brewery and Beer information
-</br>
 
 ###### The following code merges the Brewery and Beer data by Brewery_id and Brew_ID.  It then cleans up the column names and prints out the first 6 rows as well as the last 6 rows.
 

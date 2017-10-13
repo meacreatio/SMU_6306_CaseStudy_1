@@ -242,9 +242,8 @@ kable(head(breweryData,5), caption=&quot;Head of Breweries.csv&quot;)</code></pr
 <p></br></p>
 </div>
 </div>
-<div id="what-are-the-number-of-breweries-per-state" class="section level1">
-<h1>What are the number of breweries per state?</h1>
-<p></br></p>
+<div id="what-are-the-number-of-breweries-per-state" class="section level2">
+<h2>What are the number of breweries per state?</h2>
 <div id="the-following-code-derives-the-numbers-of-breweries-by-state-adds-it-as-a-column-and-then-displays-the-data-in-order-of-most-breweries-per-state-descending." class="section level6">
 <h6>The following code derives the numbers of breweries by state, adds it as a column, and then displays the data in order of most breweries per state (descending).</h6>
 <pre class="r"><code>frequencyOfBrewies &lt;- as.data.frame(table(breweryData$State))
@@ -469,7 +468,6 @@ kable(frequencyOfBrewies[order(-frequencyOfBrewies$`Number of Breweries`),],row.
 </div>
 <div id="combining-brewery-and-beer-information" class="section level1">
 <h1>Combining Brewery and Beer information</h1>
-<p></br></p>
 <div id="the-following-code-merges-the-brewery-and-beer-data-by-brewery_id-and-brew_id.-it-then-cleans-up-the-column-names-and-prints-out-the-first-6-rows-as-well-as-the-last-6-rows." class="section level6">
 <h6>The following code merges the Brewery and Beer data by Brewery_id and Brew_ID. It then cleans up the column names and prints out the first 6 rows as well as the last 6 rows.</h6>
 <pre class="r"><code>populationData &lt;- merge(beerData, breweryData,by.x=&quot;Brewery_id&quot;, by.y=&quot;Brew_ID&quot;)
