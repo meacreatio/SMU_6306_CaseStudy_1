@@ -1,3 +1,6 @@
+###### Steven Millett and Matt Pavlovich
+###### 10/11/2017
+
 # *Case Study Purpose*
 #### To compare and contrast the different beers and breweries by state.  There are two key points - one is the understanding of the correlation between ABV and IBU, and the other is the analysis of where there might be good opportunities for investors in this market.
 
@@ -5,8 +8,6 @@
 ----------------------------------------------------------------------------------------------------------------------------
 
 # SMU_6306_CaseStudy_1 Codebook
-###### Steven Millett and Matt Pavlovich
-###### 10/11/2017
 </br>
 
 ## Object List
