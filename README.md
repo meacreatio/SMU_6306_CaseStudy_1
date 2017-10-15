@@ -1,3 +1,6 @@
+# *Case Study Purpose*
+#### To compare and contrast the different beers and breweries by state.  There are two key points - one is the understanding of the correlation between ABV and IBU, and the other is the analysis of where there might be good opportunities for investors in this market.
+
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 
