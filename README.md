@@ -8,7 +8,6 @@
 ----------------------------------------------------------------------------------------------------------------------------
 
 # SMU_6306_CaseStudy_1 Codebook
-</br>
 
 ## Object List
 #### breweryData -> data frame of breweries from csv
