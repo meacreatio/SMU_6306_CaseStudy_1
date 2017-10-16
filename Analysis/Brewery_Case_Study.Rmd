@@ -21,12 +21,12 @@ library(knitr)
 </br>
 This is a systematic study of the most popular types of beers and where they are popular. We obtained demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what some popular beers that can be made for a state given the state's most popular beer and the characteristic of the 100 different styles of beers. 
 </br>
-Somethings to note we will be talking about two main characteristics of beer, IBU (International Bitterness Unit) and ABV (Alcohol by Volume). While there are other characteristics that contribute to the flavor of a beer, for the purposes of this study we are going to assume these are the primary components that make up a beer's flavor. 
+Somethings to note we will be talking about two main characteristics of beer, IBU (International Bitterness Unit) and ABV (Alcohol by Volume). While there are other characteristics that contribute to the flavor of a beer, for the purposes of this business analysis we are going to assume these are the primary components that make up a beer's flavor. 
 </br>
 
 
 
-## Number of NA's in each column
+## Loading the Data for breweries and beer
 ###### The following code loads the Breweries and Beers data from their respective .csv files and then displays the first 5 rows of each.
 ```{r loadData , echo=TRUE}
 breweryData <- read.csv("Data/Breweries.csv",header = TRUE)
@@ -35,6 +35,8 @@ kable(head(breweryData,5), caption="Head of Breweries.csv")
 kable(head(beerData,5),caption="Head of Beers.csv")
 ```
 
+</br>
+Here we are loading the data from the raw CSV files to work on and present the information. As we go all of the steps that we take to work on the information will be labeled and detailed so you can easily update the source files and use this file to present the updated information. 
 </br>
 
 ## What are the number of breweries per state?
@@ -63,7 +65,7 @@ kable(tail(populationData,6),row.names = FALSE)
 ```
 
 </br>
-Here we combine the Brewery and Beer information so we can get an understanding of the types of beers that are made in each state.
+Here we combine the Brewery and Beer information so we can get an understanding of the types of beers that are made in each state. These two tables were combined on the Brewery ID number which is a unique ID assigned to each brewery. This combined information will be what we are going to work on going forward as it helps understand demographic and location information for each beer in addition to providing insight into the preferred styles of beer for each state.
 
 </br>
 
@@ -74,7 +76,7 @@ kable(colSums(is.na(populationData)))
 ```
 
 </br>
-Due to the source of the data we are missing some information regarding the flavor and alcohol content of some of the beers. Given we are missing over 1000 values for the flavor characterstic, IBU, we will have to make some guesses later on for what the flavor of a given beer should be. 
+Due to the source of the data we are missing some information regarding the flavor and alcohol content of some of the beers. Given we are missing over 1000 values for the flavor characteristic, IBU, we will have to make some guesses later on for what the characteristic of a beer should be based off of the ABV. 
 
 </br>
 
@@ -128,7 +130,7 @@ kable(df.abv.by.state[df.abv.by.state$ABV == max(df.abv.by.state$ABV), ])
 ```
 
 </br>
-From the barchart above we are able to see that Nevada makes beers that have more alcohol on average than other states. Comparing the different states we see that Nevada makes beer on average with an ABV of 6.69%.
+From the barchart above we are able to see that Nevada makes beers that have more alcohol on average than other states. Comparing the different states, we see that Nevada makes beer on average with an ABV of 6.69%.
 </br>
 
 ## Which state's beer is the most bitter (on average)?
@@ -138,7 +140,7 @@ kable(df.ibu.by.state[df.ibu.by.state$IBU == max(df.ibu.by.state$IBU), ])
 ```
 
 </br>
-We are able to confirm from comparing the average IBU per state that West Virgina has the highest average IBUs of 57.5.
+We are able to confirm from comparing the average IBU per state that West Virginia has the highest average IBU of 57.5.
 </br>
 
 </br>
@@ -151,7 +153,7 @@ summary(populationData$ABV)
 ```
 
 </br>
-We see that there is a range for the ABV variable, with some of the styles being titled Low Alcohol Beer. The ABV of a given beer can impart certain flavors, which can often taste bitter with lighter beers. It should follow then that breweries would increase the IBUs of a beer when the brew has a higher ABV.
+We see that there is a range for the ABV variable, with some of the styles being titled Low Alcohol Beer. The ABV of a given beer can impart certain flavors, which can often taste bitter with lighter beers. It should follow then that breweries would increase the IBU of a beer when the brew has a higher ABV.
 </br>
 
 ## Plot of ABV and IBU
@@ -163,7 +165,7 @@ linearABV
 summary(linearABV)
 ```
 
-Based on the scatteplot graph and the linear regression we see a statistically signficant relationship (p<0.0001) between the alcohol conent of the beer and the bitterness. The linear formula given IBU = -34.1 + 1282*ABV shows us this relationship. From the range of ABV from .1% to 12.8% we get a range from -32.8 to 130 for the IBU.At the lower end this breaks down, but accurately predicts the IBU for the higher alcohol beer.
+Based on the scatterplot graph and the linear regression we see a statistically significant relationship (p<0.0001) between the alcohol content of the beer and the bitterness. The linear formula given IBU = -34.1 + 1282*ABV shows us this relationship. From the range of ABV from .1% to 12.8% we get a range from -32.8 to 130 for the IBU. At the lower end this breaks down, but accurately predicts the IBU for the higher alcohol beer.
 
 ## Most popular style
 ###### The following code creates a new data frame who's aim is to suggest similar beer alternatives (in terms of ABV and IBU) for a particular state.  It also shows that particular state's most popular beer as well the number of breweries in that state in an effort to show untapped market potential. 
@@ -238,10 +240,14 @@ finalAnalysis<-sqldf("SELECT `df.most.popular.style.by.state`.State,Style,[Recom
 #Output of a table with the state, most popular beer, and a good alternative given the current most popular.
 kable(finalAnalysis[order(-finalAnalysis$`Number of Breweries`),],row.names = FALSE)
 
-#map ABV and IBU relationship
-#ggplot(data=df.style,aes(ABV,IBU,color=Style))+geom_point(na.rm = TRUE)+theme(legend.position = "none")+geom_smooth(data=df.style,aes(ABV,IBU),na.rm=TRUE,inherit.aes = FALSE)
-
 ```
 
 </br>
-Above we see a table of the states, their most popular beer, recommended alternative to make in the state, and the number of breweries in the states. So to avoid a crowded market we are recommending possibly going into the Dakotas where North Dakota might like an Extra Special/Strong Bitter and South Dakota would appreciate a Smoked Beer. If you are starting a brewery in California or Michican we recommend introducing an American Black Ale. 
+Above we see a table of the states, their most popular beer, recommended alternative to make in the state, and the number of breweries in the states. So to avoid a crowded market we are recommending possibly going into the Dakotas where North Dakota might like an Extra Special/Strong Bitter and South Dakota would appreciate a Smoked Beer. If you are starting a brewery in California or Michigan we recommend introducing an American Black Ale. 
+
+```{r}
+kable(df.style[df.style$Style=="American Black Ale"|df.style$Style=="Extra Special / Strong Bitter (ESB)",],row.names = FALSE)
+```
+
+##Conclusion
+We can make a strong recommendation to look into brewing American Black Ales and Extra Special/ Strong Bitter as these would complement some of the most popular beers on the market. With ABV and IBU characteristics that are lower or about the same as most states these styles of beers are not too extreme compared to what is being produced in most states. As well, these styles could have mass appeal in a variety of markets and popularity of breweries. In states with more breweries these styles could work as well as states that have smaller craft beer markets. 
