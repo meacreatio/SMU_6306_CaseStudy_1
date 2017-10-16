@@ -21,7 +21,7 @@ library(knitr)
 </br>
 This is a systematic study of the most popular types of beers and where they are popular. We obtained demographic data from Beer Advocate with brewery information by State and the most popular beers and their breweries, where we will make the case of what some popular beers that can be made for a state given the state's most popular beer and the characteristic of the 100 different styles of beers. 
 </br>
-Somethings to note we will be talking about two main characteristics of beer, IBU (International Bitterness Unit) and ABV (Alcohol by Volume). While there are other characteristics that contribute to the flavor of a beer, for the purposes of this business analysis we are going to assume these are the primary components that make up a beer's flavor. 
+Some things to note - we will be talking about two main characteristics of beer, IBU (International Bitterness Unit) and ABV (Alcohol by Volume). While there are other characteristics that contribute to the flavor of a beer, for the purposes of this business analysis we are going to assume these are the primary components that make up a beer's flavor. 
 </br>
 
 
