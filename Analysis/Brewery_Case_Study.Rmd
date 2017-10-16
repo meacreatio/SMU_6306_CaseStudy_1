@@ -249,5 +249,5 @@ Above we see a table of the states, their most popular beer, recommended alterna
 kable(df.style[df.style$Style=="American Black Ale"|df.style$Style=="Extra Special / Strong Bitter (ESB)",],row.names = FALSE)
 ```
 
-##Conclusion
+## Conclusion
 We can make a strong recommendation to look into brewing American Black Ales and Extra Special/ Strong Bitter as these would complement some of the most popular beers on the market. With ABV and IBU characteristics that are lower or about the same as most states these styles of beers are not too extreme compared to what is being produced in most states. As well, these styles could have mass appeal in a variety of markets and popularity of breweries. In states with more breweries these styles could work as well as states that have smaller craft beer markets. 
