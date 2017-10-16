@@ -10,6 +10,7 @@
 # SMU_6306_CaseStudy_1 Data Directory
 
 ###Files
+
 ####Beers.csv - Beer data with columns: Name, Beer_ID, ABV, IBU, Brewery, Style, Ounces
 
 ####Breweries.csv - Brewery data with columns: Brew_ID, Name, City, State
